@@ -1,13 +1,15 @@
-import 'dart:ffi';
+import 'package:divisor_tensao/cal.dart';
 
 import 'package:flutter/material.dart';
 
-class tensao extends StatefulWidget {
+final calcu = Calcu();
+
+class Tensao extends StatefulWidget {
   @override
   tensaoState createState() => tensaoState();
 }
 
-class tensaoState extends State<tensao> {
+class tensaoState extends State<Tensao> {
   String resistorone, resistortwo, vin, vout;
   TextEditingController vInController = new TextEditingController();
   TextEditingController resOneController = new TextEditingController();
@@ -15,36 +17,8 @@ class tensaoState extends State<tensao> {
   TextEditingController resTwoController = new TextEditingController();
 
   TextEditingController vOutController = new TextEditingController();
-  String _infoText = "";
-  double vinResul, resoneResul, restwoResul, voutResul;
 
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-  calcula() {
-    setState(() {
-      double vin = double.tryParse(vInController.text);
-
-      double resistorone = double.tryParse(resOneController.text);
-      double resistortwo = double.tryParse(resTwoController.text);
-      double vout = double.tryParse(vOutController.text);
-
-      if (vin == null) {
-        vinResul = (vout * ((resistorone + resistortwo) / resistortwo));
-
-        vInController.text = "${vinResul.toStringAsPrecision(2)}v";
-      } else if (resistorone == null) {
-        resoneResul = (((vin * resistortwo) / vout) - resistortwo);
-
-        resOneController.text = "${resoneResul.toStringAsPrecision(3)}ohms";
-      } else if (resistortwo == null) {
-        restwoResul = ((vout * resistorone) / (vin - vout));
-
-        resTwoController.text = "${restwoResul.toStringAsPrecision(3)}ohms";
-      } else if (vout == null) {
-        voutResul = ((resistortwo / (resistorone + resistortwo)) * vin);
-        vOutController.text = "${voutResul.toStringAsPrecision(3)}v";
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +40,11 @@ class tensaoState extends State<tensao> {
             key: _formkey,
             child: Column(children: <Widget>[
               _buildDivisor(),
-              buildTextInfo(),
               buildbotton(context),
               SizedBox(
                 height: 180,
               ),
-               buildtoq(),
+              buildtoq(),
               SizedBox(
                 height: 30,
               ),
@@ -84,7 +57,7 @@ class tensaoState extends State<tensao> {
     return new Column(children: <Widget>[
       new TextFormField(
         keyboardType: TextInputType.number,
-        controller: vInController,
+        controller: calcu.vInController,
         decoration: new InputDecoration(
           hintText: 'Tensão de Entrada',
         ),
@@ -92,19 +65,19 @@ class tensaoState extends State<tensao> {
       SizedBox(height: 20),
       new TextFormField(
         keyboardType: TextInputType.number,
-        controller: resOneController,
+        controller: calcu.resOneController,
         decoration: new InputDecoration(hintText: 'Resistor +   (Em Ohms)'),
       ),
       SizedBox(height: 20),
       new TextFormField(
         keyboardType: TextInputType.number,
-        controller: resTwoController,
+        controller: calcu.resTwoController,
         decoration: new InputDecoration(hintText: 'Resistor -   (Em Ohms)'),
       ),
       SizedBox(height: 20),
       new TextFormField(
         keyboardType: TextInputType.number,
-        controller: vOutController,
+        controller: calcu.vOutController,
         validator: (value) {
           if (value.isEmpty) {
             return 'valor';
@@ -129,7 +102,7 @@ class tensaoState extends State<tensao> {
           color: Colors.blue,
           textColor: Colors.white,
           onPressed: () {
-            calcula();
+            calcu.calcula();
             if (_formkey.currentState.validate()) {
               FocusScope.of(context).requestFocus(new FocusNode());
             }
@@ -139,36 +112,20 @@ class tensaoState extends State<tensao> {
         )));
   }
 
-  Text buildTextInfo() {
-    return Text(_infoText,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            color: Colors.red, fontSize: 20.0, fontWeight: FontWeight.bold));
-  }
-
   void _resetFields() {
-    vInController.text = "";
-    resOneController.text = "";
-    resTwoController.text = "";
-    vOutController.text = "";
-
-    setState(() {
-      _formkey = GlobalKey<FormState>();
-    });
+    calcu.vInController.text = "";
+    calcu.resOneController.text = "";
+    calcu.resTwoController.text = "";
+    calcu.vOutController.text = "";
   }
-  buildtoq(){
-   return Center(
-     
-     child:
-     Container(
-       
-       
-         
-       
-       child:
-         Text("TOQTEC",
-              style: TextStyle(color: Colors.grey, fontSize: 20.0, fontFamily: "Imprima")
-        
-    
-          ))); }
+
+  buildtoq() {
+    return Center(
+        child: Container(
+            child: Text("TOQTEC",
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 20.0,
+                    fontFamily: "Imprima"))));
+  }
 }

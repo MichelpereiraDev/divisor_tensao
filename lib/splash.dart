@@ -26,7 +26,7 @@ class _splashState extends State<splash> {
             Colors.blue[900],
           ],
         ),
-        navigateAfterSeconds: tensao(),
+        navigateAfterSeconds: Tensao(),
         loaderColor: Colors.transparent,
       ),
       Center(
