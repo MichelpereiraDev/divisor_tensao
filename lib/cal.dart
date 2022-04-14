@@ -1,8 +1,17 @@
-import 'package:divisor_tensao/divisor.dart';
+import 'package:divisor_tensao/componentes/componentes.dart';
+import 'package:flutter/material.dart';
 
-final tensao = Tensao();
+class Controller {
+  String resistorone, resistortwo, vin, vout;
 
-class Calcu extends tensaoState {
+  TextEditingController vInController = TextEditingController();
+
+  TextEditingController resOneController = TextEditingController();
+
+  TextEditingController resTwoController = TextEditingController();
+
+  TextEditingController vOutController = TextEditingController();
+
   calcula() {
     double vinResul, resoneResul, restwoResul, voutResul;
     double vin = double.tryParse(vInController.text);
@@ -18,7 +27,7 @@ class Calcu extends tensaoState {
     } else if (resistorone == null) {
       resoneResul = (((vin * resistortwo) / vout) - resistortwo);
 
-      resOneController.text = "${resoneResul.toStringAsPrecision(3)}ohms";
+      resOneController.text = "${resoneResul.toStringAsPrecision(4)}ohms";
     } else if (resistortwo == null) {
       restwoResul = ((vout * resistorone) / (vin - vout));
 

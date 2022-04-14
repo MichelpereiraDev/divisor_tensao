@@ -42,9 +42,9 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.toqtec2.divisor_tensao"
-        minSdkVersion 16
-        targetSdkVersion 29
+        applicationId "com.toqtec.divisor_tensao2"
+        minSdkVersion 19
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

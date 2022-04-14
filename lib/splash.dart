@@ -2,6 +2,7 @@
 
 import 'package:divisor_tensao/divisor.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 
@@ -37,15 +38,9 @@ class _splashState extends State<splash> {
           SizedBox(height:20.0),
           Text(
             "Divisor de Tensão",
-            style: TextStyle(
-              fontSize: 30,
-              fontStyle: FontStyle.italic,
-              
-              
-              color: Colors.white,
-            ),
+            style: GoogleFonts.catamaran(color: Colors.white, fontSize: 30
           ),
-        ],
+          )],
       ))
     ]));
   }
