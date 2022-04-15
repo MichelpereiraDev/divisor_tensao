@@ -5,8 +5,8 @@
     <h2>
     <p align="center">App que efetua o calculo para divisão de tensão com resistores</p></h2>
  
-<p align="center"
-<img src="assets/img/Peek-14-04-2022-21-54.gif"> </p>
+
+<img width="400" height="600"  src="assets/img/Peek-14-04-2022-21-54.gif"> 
 
 
 ![tela](https://user-images.githubusercontent.com/8737264/163092106-5e82c0ea-bd74-4e15-9fbc-2aaa1fbb2de8.png)
